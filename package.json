@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "build:mac": "electron-packager ./ 'Gulp Run Shell' --platform=darwin --arch=x64 --icon=./images/logo.icns --overwrite --out ./dist/$npm_package_version --ignore='(node_modules/electron-*|node_modules/.bin|.git|.DS_Store|dist)'",
-    "build:win": "electron-packager ./ 'Gulp Run Shell' --platform=win32 --arch=x64 --icon=./images/logo.ico --overwrite --out ./dist/$npm_package_version --ignore='(node_modules/electron-*|.git|.DS_Store|dist)'"
+    "build:mac": "electron-packager ./ GulpShell --platform=darwin --arch=x64 --icon=./images/logo.icns --overwrite --out ./dist/$npm_package_version --ignore='(node_modules/electron-*|node_modules/.bin|.git|.DS_Store|dist)'",
+    "build:win": "electron-packager ./ GulpShell --platform=win32 --arch=x64 --icon=./images/logo.ico --overwrite --out ./dist/$npm_package_version --ignore=node_modules/electron-* --ignore=node_modules/.bin --ignore=.git --ignore=.DS_Store"
   },
   "devDependencies": {
     "asar": "^0.12.3",
