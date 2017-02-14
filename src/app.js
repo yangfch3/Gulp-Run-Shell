@@ -32,6 +32,7 @@ let $curProject = null;
 let finderTitle = Common.PLATFORM === 'win32' ? '打开项目文件夹' : '打开项目目录';
 let closeGulpManually = false;
 let justInitStatusBar = true;
+let localGulpBin = Common.PLATFORM === 'win32' ? '.\node_modules\.bin\gulp.cmd' : './node_modules/.bin/gulp';
 
 ipcRender.on('message', function(event){
      event.send('dd')
@@ -554,13 +555,13 @@ function runDevTask(projectPath, task) {
     if (task === 'install') {
       child = childProcess.exec('npm install', {'cwd': cwd, silent: true});
     } else {
-      child = childProcess.exec('gulp ' + task, {'cwd': cwd, silent: true});
+      child = childProcess.exec(`${localGulpBin} ` + task, {'cwd': cwd, silent: true});
     }
   } else {
     if (task === 'install') {
       child = childProcess.spawn('npm', [task], {env: {'PATH':'/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'}, cwd: cwd});
     } else {
-      child = childProcess.spawn('gulp', [task], {env: {'PATH':'/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'}, cwd: cwd, silent: true});
+      child = childProcess.spawn(`${localGulpBin}`, [task], {env: {'PATH':'/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'}, cwd: cwd, silent: true});
     }
   }
   console.log(child.pid);
