@@ -149,6 +149,8 @@ function initData() {
               $gulpButton.addClass('qw_hide');
               $cleanButton.addClass('qw_hide');
               $installButton.removeClass('qw_hide');
+              storage['setting']['gulp']['statusIcon'] === 'false';
+              storage['setting']['gulp']['notification'] === 'false';
             } else {
               $gulpButton.removeClass('qw_hide');
               $cleanButton.removeClass('qw_hide');
@@ -568,12 +570,12 @@ function runDevTask(projectPath, task) {
 
   child.stdout.setEncoding('utf-8');
   child.stdout.on('data', function (data) {
-    console.log(data);
+    // console.log(data);
     logReply(data.toString(), projectPath);
   });
 
   child.stderr.on('data', function (data) {
-    console.log(data)
+    // console.log(data)
     logReply(data.toString(), projectPath);
   });
 
@@ -595,6 +597,7 @@ function runDevTask(projectPath, task) {
         // 意外关闭的进程并没有进入正常的流程，因此需要手动更新 storage 和 UI 表现
         let $project = $('.js_project_item[data-pid="' + this.pid + '"]');
         $project.removeClass('project_stage_item_Watching');
+        $cleanButton.removeClass('qw_hide');
         $project.data('default', false);
 
         let storage = Common.getLocalStorage();
@@ -643,6 +646,8 @@ function runDevTask(projectPath, task) {
           $cleanButton.removeClass('qw_hide');
           $installButton.addClass('qw_hide');
         }
+        storage['setting']['gulp']['statusIcon'] === 'true';
+        storage['setting']['gulp']['notification'] === 'true';
         tipText = '依赖包安装完毕，可以开始启用 gulp 服务';
         logReply(logTextWithDate(tipText), projectPath);
       }
